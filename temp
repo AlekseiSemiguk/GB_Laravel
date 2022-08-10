@@ -1,0 +1,12 @@
+
+Route::get('/hello', function () {
+    return view('hello');
+});
+
+Route::get('/about', function () {
+    return view('about');
+});
+
+Route::get('/news/{id}', [NewsController::class, 'show']);
+
+use App\Http\Controllers\NewsController;

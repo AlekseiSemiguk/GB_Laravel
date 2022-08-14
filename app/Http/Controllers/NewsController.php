@@ -6,18 +6,21 @@ use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
-    /**
-     * Show the profile for a given user.
-     *
-     * @param  int  $id
-     * @return \Illuminate\View\View
-     */
-    public function show($id)
+    public function index(Request $request)
     {
-        return view('news.detail');
+        $categoryFilter = $request->query('category_id');
+        $filters['category_id'] = $categoryFilter;
+        $news = $this->getNews($filters);
+        return view('news.index', [
+            'newsList' => $news
+        ]);
+    }
 
-/*        return view('news.detail', [
-            'news' => News::findOrFail($id)
-        ]);*/
+    public function show(int $id)
+    {
+        $news = $this->getNews(array(), $id);
+        return view('news.show', [
+            'news' => $news
+        ]);
     }
 }

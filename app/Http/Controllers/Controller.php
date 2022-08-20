@@ -30,7 +30,8 @@ class Controller extends BaseController
                 'title'         => $this->faker->jobTitle(),
                 'author'        => $this->faker->userName(),
                 'status'        => 'DRAFT',
-                'description'   =>  $this->faker->text(100),
+                'description'   =>  $this->faker->text(1000),
+                'anonce'        =>  $this->faker->text(100),
                 'created_at'    => now('Europe/Moscow'),
                 'category'      => $this->faker->word()
             ];
@@ -42,7 +43,8 @@ class Controller extends BaseController
                     'title'         => $this->faker->jobTitle(),
                     'author'        => $this->faker->userName(),
                     'status'        => 'DRAFT',
-                    'description'   => $this->faker->text(100),
+                    'description'   =>   $this->faker->text(1000),
+                    'anonce'        =>  $this->faker->text(100),
                     'created_at'    => now('Europe/Moscow'),
                     'category'      => $category['name'],
                     'category_id'   => $i

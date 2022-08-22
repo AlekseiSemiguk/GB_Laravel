@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FeedbackFormController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\IndexController as AdminController;
 
+use App\Http\Controllers\OrderFormController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,3 +49,17 @@ Route::get('/news', [NewsController::class, 'index'])
 
 Route::get('/categories', [CategoryController::class, 'index'])
     ->name('categories.index');
+
+Route::get('/contacts', function() {
+    return view('contacts.index');
+})->name('contacts.index');
+
+Route::post('/contacts', FeedbackFormController::class)
+    ->name('feedback_form');
+
+Route::get('/make-order', function() {
+    return view('make_order.index');
+})->name('make_order.index');
+
+Route::post('/make-order', OrderFormController::class)
+    ->name('order_form');

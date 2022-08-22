@@ -6,6 +6,8 @@
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
         <li><a href="{{ route("news.index") }}" class="nav-link px-2 link-secondary">News</a></li>
         <li><a href="{{ route("categories.index") }}" class="nav-link px-2 link-dark">Categories</a></li>
+        <li><a href="{{ route("make_order.index") }}" class="nav-link px-2 link-dark">Make order</a></li>
+        <li><a href="{{ route("contacts.index") }}" class="nav-link px-2 link-dark">Contacts</a></li>
     </ul>
 
     <div class="col-md-3 text-end">

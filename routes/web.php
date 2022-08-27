@@ -40,8 +40,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
     Route::resource('news', AdminNewsController::class);
 });
 
-Route::get('/news/{id}', [NewsController::class, 'show'])
-    ->where('id', '\d+')
+Route::get('/news/{slug}', [NewsController::class, 'show'])
     ->name('news.show');
 
 Route::get('/news', [NewsController::class, 'index'])

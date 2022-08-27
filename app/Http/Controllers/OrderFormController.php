@@ -23,7 +23,7 @@ class OrderFormController extends Controller
             'data' => ['required', 'string', 'min:1', 'max:1000']
         ]);
 
-        Storage::disk('local')->append('forms/results.txt', response()->json($request->only(['name', 'phone', 'email', 'url', 'data'])));
+        Storage::disk('local')->append('forms/results.txt', json_encode($request->only(['name', 'phone', 'email', 'url', 'data'])));
 
         return response()->json($request->only(['name', 'phone', 'email', 'url', 'data']));
     }

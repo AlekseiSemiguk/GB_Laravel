@@ -12,6 +12,12 @@
                 Categories
             </a>
         </li>
+        <li>
+            <a href="{{ route("admin.news_sources.index") }}" class="nav-link link-dark">
+                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#folder"/></svg>
+                News sources
+            </a>
+        </li>
     </ul>
     <hr>
     <div class="dropdown">

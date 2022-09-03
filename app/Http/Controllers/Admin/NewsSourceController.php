@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\News;
 use App\Models\NewsSource;
-use App\Queries\NewsQueryBuilder;
+use App\Queries\NewsSourceQueryBuilder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-class NewsController extends Controller
+class NewsSourceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +17,9 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::all();
-        return view('admin.news.index', [
-            'newsList' => $news
+        $newsSources = NewsSource::all();
+        return view('admin.news_sources.index', [
+            'newsSources' => $newsSources
         ]);
     }
 
@@ -32,13 +30,7 @@ class NewsController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        $newsSources = NewsSource::all();
-
-        return view('admin.news.create', [
-            'categories' => $categories,
-            'newsSources' => $newsSources
-        ]);
+        return view('admin.news_sources.create');
     }
 
     /**
@@ -49,20 +41,19 @@ class NewsController extends Controller
      */
     public function store(
         Request $request,
-        NewsQueryBuilder $builder
+        NewsSourceQueryBuilder $builder
     ): RedirectResponse {
 
         $request->validate([
-            'title' => ['required', 'string', 'min:5', 'max:255']
+            'title' => ['required', 'string', 'min:3', 'max:255']
         ]);
 
-        $news = $builder->create(
-            $request->only(['category_id', 'news_source_id', 'date',
-                'title', 'author', 'status', 'image', 'anonce', 'description'])
+        $newsSource = $builder->create(
+            $request->only(['title'])
         );
 
-        if($news) {
-            return redirect()->route('admin.news.index')
+        if($newsSource) {
+            return redirect()->route('admin.news_sources.index')
                 ->with('success', 'Запись успешно добавлена');
         }
 
@@ -83,17 +74,13 @@ class NewsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param News $news
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(News $news)
+    public function edit(NewsSource $newsSource)
     {
-        $categories = Category::all();
-        $newsSources = NewsSource::all();
-        return view('admin.news.edit', [
-            'news' => $news,
-            'categories' => $categories,
-            'newsSources' => $newsSources
+        return view('admin.news_sources.edit', [
+            'newsSource' => $newsSource,
         ]);
     }
 
@@ -106,12 +93,11 @@ class NewsController extends Controller
      */
     public function update(
         Request $request,
-        News $news,
-        NewsQueryBuilder $builder
+        NewsSource $newsSource,
+        NewsSourceQueryBuilder $builder
     ): RedirectResponse {
-        if($builder->update($news, $request->only(['category_id',
-            'title', 'author', 'status', 'image', 'anonce', 'description', 'date']))) {
-            return redirect()->route('admin.news.index')
+        if($builder->update($newsSource, $request->only(['title']))) {
+            return redirect()->route('admin.news_sources.index')
                 ->with('success', 'Запись успешно обновлена');
 
         }
@@ -125,9 +111,9 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(News $news)
+    public function destroy(NewsSource $newsSource)
     {
-        $news->delete();
+        $newsSource->delete();
 
         return response()->json([
             'success' => 'Record deleted successfully!'

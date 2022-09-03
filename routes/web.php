@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FeedbackFormController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\NewsSourceController as AdminNewsSourceController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\IndexController as AdminController;
 
@@ -38,9 +39,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
         ->name('index');
     Route::resource('categories', AdminCategoryController::class);
     Route::resource('news', AdminNewsController::class);
+    Route::resource('news_sources', AdminNewsSourceController::class);
 });
 
-Route::get('/news/{slug}', [NewsController::class, 'show'])
+Route::get('/news/{news:slug}', [NewsController::class, 'show'])
     ->name('news.show');
 
 Route::get('/news', [NewsController::class, 'index'])

@@ -15,9 +15,8 @@ class NewsController extends Controller
         ]);
     }
 
-    public function show(string $slug)
+    public function show(News $news)
     {
-        $news = app(News::class)->getNewsBySlug($slug);
         return view('news.show', [
             'news' => $news
         ]);

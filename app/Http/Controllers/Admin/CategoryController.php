@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Queries\CategoryQueryBuilder;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -15,7 +17,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = app(Category::class)->getCategories();
+        $categories = Category::all();
         return view('admin.categories.index', [
             'categoryList' => $categories
         ]);
@@ -28,7 +30,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**
@@ -37,9 +39,25 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(
+        Request $request,
+        CategoryQueryBuilder $builder
+    ): RedirectResponse {
+
+        $request->validate([
+            'title' => ['required', 'string', 'min:3', 'max:255']
+        ]);
+
+        $category = $builder->create(
+            $request->only(['title'])
+        );
+
+        if($category) {
+            return redirect()->route('admin.categories.index')
+                ->with('success', 'Запись успешно добавлена');
+        }
+
+        return back()->with('error', 'Не удалось добавить запись');
     }
 
     /**
@@ -59,9 +77,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        return view('admin.categories.edit', [
+            'category' => $category,
+        ]);
     }
 
     /**
@@ -71,9 +91,18 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(
+        Request $request,
+        Category $category,
+        CategoryQueryBuilder $builder
+    ): RedirectResponse {
+        if($builder->update($category, $request->only(['title']))) {
+            return redirect()->route('admin.categories.index')
+                ->with('success', 'Запись успешно обновлена');
+
+        }
+
+        return back()->with('error', 'Не удалось обновить запись');
     }
 
     /**
@@ -82,8 +111,12 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return response()->json([
+            'success' => 'Record deleted successfully!'
+        ]);
     }
 }

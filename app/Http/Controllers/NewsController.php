@@ -9,7 +9,7 @@ class NewsController extends Controller
 {
     public function index(Request $request)
     {
-        $news = app(News::class)->getNews();
+        $news = News::all();
         return view('news.index', [
             'newsList' => $news
         ]);

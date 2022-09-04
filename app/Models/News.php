@@ -41,7 +41,7 @@ class News extends Model
     public const ACTIVE = 'ACTIVE';
     public const BLOCKED = 'BLOCKED';
 
-/*    public function getNews(): Collection
+    public function getNews(): Collection
     {
         return DB::table($this->table)->get(self::$selectedFields);
     }
@@ -54,7 +54,7 @@ class News extends Model
     public function getNewsBySlug(string $slug): ?object
     {
         return DB::table($this->table)->where('slug', $slug)->first(self::$selectedFields);
-    }*/
+    }
 
     /**
      * Get the options for generating the slug.

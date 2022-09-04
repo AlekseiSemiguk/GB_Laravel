@@ -12,7 +12,7 @@
                         <h3 class="mb-0">{{ $news->title }}</h3>
                         <div class="mb-1 text-muted">{{ $news->date }} by {{ $news->author }}</div>
                         <p class="card-text mb-auto">{{ $news->anonce }}</p>
-                        <a href="{{ route('news.show', ['slug' => $news->slug]) }}" class="stretched-link">Read news</a>
+                        <a href="{{ route('news.show', ['news' => $news]) }}" class="stretched-link">Read news</a>
                     </div>
                     <div class="col-auto d-none d-lg-block">
                         <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Forms\OrderRequest;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,18 +15,19 @@ class OrderFormController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(OrderRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'min:3', 'max:25'],
-            'phone' => ['required', 'string', 'min:6', 'max:20'],
-            'email' => ['required', 'email'],
-            'url' => ['required', 'string', 'min:3', 'max:2048'],
-            'data' => ['required', 'string', 'min:1', 'max:1000']
-        ]);
+        $order = Order::create($request->validated());
 
-        Storage::disk('local')->append('forms/results.txt', json_encode($request->only(['name', 'phone', 'email', 'url', 'data'])));
+        if($order) {
+            return redirect()->route('make_order.index')
+                ->with('success', __('messages.forms.make_order.success'));
+        }
 
-        return response()->json($request->only(['name', 'phone', 'email', 'url', 'data']));
+        return back()->with('error', __('messages.forms.make_order.fail'));
+
+        //Storage::disk('local')->append('forms/results.txt', json_encode($request->only(['name', 'phone', 'email', 'url', 'data'])));
+
+        //return response()->json($request->only(['name', 'phone', 'email', 'url', 'data']));
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Forms\FeedbackRequest;
+use App\Models\Feedback;
 use Illuminate\Http\Request;
 
 class FeedbackFormController extends Controller
@@ -12,13 +14,17 @@ class FeedbackFormController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(FeedbackRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'min:3', 'max:25'],
-            'comments' => ['required', 'string', 'min:1', 'max:1000']
-        ]);
+        $feedback = Feedback::create($request->validated());
 
-        return response()->json($request->only(['name', 'comments']));
+        if($feedback) {
+            return redirect()->route('contacts.index')
+                ->with('success', __('messages.forms.feedback.success'));
+        }
+
+        return back()->with('error', __('messages.forms.feedback.fail'));
+
+        //return response()->json($feedback);
     }
 }

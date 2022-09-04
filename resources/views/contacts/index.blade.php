@@ -7,11 +7,7 @@
             <br>
             <h2>Обратная связь</h2>
 
-            @if($errors->any())
-                @foreach($errors->all() as $error)
-                    <x-forms.alert type="danger" :message="$error" class="alert-dismissible fade show"/>
-                @endforeach
-            @endif
+            @include('inc.message')
 
             <form method="post" action="{{ route('feedback_form') }}">
                 @csrf

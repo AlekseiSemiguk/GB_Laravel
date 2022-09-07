@@ -3,6 +3,8 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FeedbackFormController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\Account\IndexController as AccountController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\NewsSourceController as AdminNewsSourceController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
@@ -34,12 +36,19 @@ Route::get('/about', function () {
     return view('about');
 });
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
-    Route::get('/', AdminController::class)
-        ->name('index');
-    Route::resource('categories', AdminCategoryController::class);
-    Route::resource('news', AdminNewsController::class);
-    Route::resource('news_sources', AdminNewsSourceController::class);
+Route::middleware('auth')->group(function () {
+    Route::get('/account', AccountController::class)
+        ->name('account');
+
+    //Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
+    Route::middleware('is_admin')->prefix('admin')->name('admin.')->group( function() {
+        Route::get('/', AdminController::class)
+            ->name('index');
+        Route::resource('categories', AdminCategoryController::class);
+        Route::resource('news', AdminNewsController::class);
+        Route::resource('news_sources', AdminNewsSourceController::class);
+        Route::resource('users', AdminUserController::class);
+    });
 });
 
 Route::get('/news/{news:slug}', [NewsController::class, 'show'])
@@ -64,3 +73,7 @@ Route::get('/make-order', function() {
 
 Route::post('/make-order', OrderFormController::class)
     ->name('order_form');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -1,6 +1,12 @@
 <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
     <ul class="nav nav-pills flex-column mb-auto">
         <li>
+            <a href="{{ route("admin.users.index") }}" class="nav-link link-dark">
+                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#folder"/></svg>
+                Users
+            </a>
+        </li>
+        <li>
             <a href="{{ route("admin.news.index") }}" class="nav-link link-dark">
                 <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#folder"/></svg>
                 News

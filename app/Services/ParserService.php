@@ -83,7 +83,7 @@ class ParserService implements Parser
         return "Импортировано новостей $importCount из $totalNewsCount";
     }
 
-    public function getCategoryId()
+    protected function getCategoryId()
     {
         if ($this->categoryId === 0) {
             $category = Category::query()->where('title', '=', get_class($this)::NEWS_CATEGORY)->first();
@@ -96,7 +96,7 @@ class ParserService implements Parser
         }
     }
 
-    public function getNewsSourceId()
+    protected function getNewsSourceId()
     {
         if ($this->newsSourceId === 0) {
             $newsSource = NewsSource::query()->where('title', '=', get_class($this)::NEWS_SOURCE)->first();

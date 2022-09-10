@@ -14,4 +14,11 @@ interface Parser
      * @return array
      */
     public function getParseData(): self;
+
+    /**
+     * @return string
+     */
+    public function saveData(): string;
 }
+
+

@@ -57,7 +57,7 @@ class NewsController extends Controller
         ]);
 
         $news = $builder->create(
-            $request->only(['category_id', 'news_source_id', 'date',
+            $request->only(['category_id', 'news_source_id', 'date', 'link',
                 'title', 'author', 'status', 'image', 'anonce', 'description'])
         );
 
@@ -109,7 +109,7 @@ class NewsController extends Controller
         News $news,
         NewsQueryBuilder $builder
     ): RedirectResponse {
-        if($builder->update($news, $request->only(['category_id',
+        if($builder->update($news, $request->only(['category_id', 'link',
             'title', 'author', 'status', 'image', 'anonce', 'description', 'date']))) {
             return redirect()->route('admin.news.index')
                 ->with('success', 'Запись успешно обновлена');

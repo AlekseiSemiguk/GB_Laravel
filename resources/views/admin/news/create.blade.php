@@ -31,6 +31,10 @@
                 <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}">
             </div>
             <div class="form-group">
+                <label for="link">Ссылка</label>
+                <input type="text" class="form-control" name="link" id="link" value="{{ old('link') }}">
+            </div>
+            <div class="form-group">
                 <label for="author">Автор</label>
                 <input type="text" class="form-control" name="author" id="author" value="{{ old('author') }}">
             </div>

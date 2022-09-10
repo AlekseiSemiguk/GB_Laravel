@@ -32,6 +32,10 @@
                 <input type="text" class="form-control" name="title" id="title" value="{{ $news->title }}">
             </div>
             <div class="form-group">
+                <label for="link">Ссылка</label>
+                <input type="text" class="form-control" name="link" id="link" value="{{ $news->link }}">
+            </div>
+            <div class="form-group">
                 <label for="author">Автор</label>
                 <input type="text" class="form-control" name="author" id="author" value="{{ $news->author }}">
             </div>

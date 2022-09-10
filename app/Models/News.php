@@ -30,7 +30,7 @@ class News extends Model
     ];
 
     private static $selectedFields = [
-        'id', 'slug', 'title', 'author', 'anonce', 'image', 'description', 'date'
+        'id', 'slug', 'title', 'link', 'author', 'anonce', 'image', 'description', 'date'
     ];
 
     protected $dates = [

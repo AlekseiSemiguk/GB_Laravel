@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ParserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FeedbackFormController;
 use App\Http\Controllers\NewsController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\IndexController as AdminController;
 
 use App\Http\Controllers\OrderFormController;
+use App\Http\Controllers\SocialController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,6 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('is_admin')->prefix('admin')->name('admin.')->group( function() {
         Route::get('/', AdminController::class)
             ->name('index');
+        Route::get('/parser', ParserController::class)->name('parser');
         Route::resource('categories', AdminCategoryController::class);
         Route::resource('news', AdminNewsController::class);
         Route::resource('news_sources', AdminNewsSourceController::class);
@@ -77,3 +80,12 @@ Route::post('/make-order', OrderFormController::class)
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group(['middleware' => 'guest'], function() {
+    Route::get('/auth/redirect/{driver}', [SocialController::class, 'redirect'])
+        ->where('driver', '\w+')
+        ->name('social.auth.redirect');
+
+    Route::get('/auth/callback/{driver}', [SocialController::class, 'callback'])
+        ->where('driver', '\w+');
+});

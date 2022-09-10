@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+
 use App\Models\Category;
 use App\Models\News;
 use App\Models\NewsSource;
@@ -53,6 +54,19 @@ class ParserService implements Parser
     public function saveData(): string
     {
         $importCount = 0;
+
+        $categoryId = $this->getIdOrCreateByFieldValue(
+            Category::class,
+            'title',
+            get_class($this)::NEWS_CATEGORY
+        );
+
+        $newsSourceId = $this->getIdOrCreateByFieldValue(
+            NewsSource::class,
+            'title',
+            get_class($this)::NEWS_SOURCE
+        );
+
         foreach ($this->data['news'] as $newsItem) {
             $newsItem['date'] = $newsItem ['pubDate'];
             unset ($newsItem ['pubDate']);
@@ -67,9 +81,6 @@ class ParserService implements Parser
                 continue;
             }
 
-            $categoryId = $this->getCategoryId();
-            $newsSourceId = $this->getNewsSourceId();
-
             $validated = $validator->validated();
 
             $validated['category_id'] = $categoryId;
@@ -83,29 +94,12 @@ class ParserService implements Parser
         return "Импортировано новостей $importCount из $totalNewsCount";
     }
 
-    protected function getCategoryId()
+    protected function getIdOrCreateByFieldValue($modelClass, $column, $value): int
     {
-        if ($this->categoryId === 0) {
-            $category = Category::query()->where('title', '=', get_class($this)::NEWS_CATEGORY)->first();
-            if ($category === null) {
-                $category = Category::create(['title' => get_class($this)::NEWS_CATEGORY]);
-            }
-            return $this->categoryId = $category->id;
-        } else {
-            return $this->categoryId;
+        $row = $modelClass::query()->where($column, '=', $value)->first();
+        if ($row === null) {
+            $row = $modelClass::create([$column => $value]);
         }
-    }
-
-    protected function getNewsSourceId()
-    {
-        if ($this->newsSourceId === 0) {
-            $newsSource = NewsSource::query()->where('title', '=', get_class($this)::NEWS_SOURCE)->first();
-            if ($newsSource === null) {
-                $newsSource = NewsSource::create(['title' => get_class($this)::NEWS_SOURCE]);
-            }
-            return $this->newsSourceId = $newsSource->id;
-        } else {
-            return $this->newsSourceId;
-        }
+        return $row->id;
     }
 }

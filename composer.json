@@ -9,12 +9,22 @@
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
-        "laravel/tinker": "^2.7"
+        "laravel/socialite": "^5.5",
+        "laravel/tinker": "^2.7",
+        "orchestra/parser": "^7.0",
+        "spatie/laravel-sluggable": "^3.4",
+        "unisharp/laravel-filemanager": "^2.5"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.7",
         "fakerphp/faker": "^1.9.1",
+        "laravel-lang/attributes": "^2.0",
+        "laravel-lang/lang": "^11.0",
+        "laravel-lang/publisher": "^14.3",
+        "laravel/dusk": "^7.0",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.0.1",
+        "laravel/ui": "^4.0",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.1",
         "phpunit/phpunit": "^9.5.10",

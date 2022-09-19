@@ -49,7 +49,7 @@ class NewsSourceController extends Controller
         ]);
 
         $newsSource = $builder->create(
-            $request->only(['title'])
+            $request->only(['title', 'url', 'description'])
         );
 
         if($newsSource) {
@@ -96,7 +96,7 @@ class NewsSourceController extends Controller
         NewsSource $newsSource,
         NewsSourceQueryBuilder $builder
     ): RedirectResponse {
-        if($builder->update($newsSource, $request->only(['title']))) {
+        if($builder->update($newsSource, $request->only(['title', 'description', 'url']))) {
             return redirect()->route('admin.news_sources.index')
                 ->with('success', 'Запись успешно обновлена');
 

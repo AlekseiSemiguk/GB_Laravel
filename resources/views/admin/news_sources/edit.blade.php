@@ -2,7 +2,7 @@
 
     <div class="offset-2 col-8">
         <br>
-        <h2>Редактировать категорию</h2>
+        <h2>Редактировать источник</h2>
 
         @include('inc.message')
 
@@ -12,6 +12,14 @@
             <div class="form-group">
                 <label for="title">Заголовок</label>
                 <input type="text" class="form-control" name="title" id="title" value="{{ $newsSource->title }}">
+            </div>
+            <div class="form-group">
+                <label for="description">Описание</label>
+                <textarea class="form-control" name="description" id="description">{!! $newsSource->description !!}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="url">URL</label>
+                <textarea class="form-control" name="url" id="url">{!! $newsSource->url !!}</textarea>
             </div>
 
             <br>

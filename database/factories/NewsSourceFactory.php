@@ -18,7 +18,8 @@ class NewsSourceFactory extends Factory
     {
         return [
             'title' => fake()->sentence(7),
-            'description' => fake()->paragraph()
+            'description' => fake()->paragraph(),
+            'url' => fake()->url()
         ];
     }
 }

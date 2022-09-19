@@ -15,7 +15,7 @@ class NewsSource extends Model
     use HasSlug;
 
     protected $fillable = [
-        'title'
+        'title', 'description', 'url'
     ];
 
     /**

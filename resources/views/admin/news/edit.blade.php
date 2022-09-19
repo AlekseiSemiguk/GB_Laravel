@@ -69,12 +69,29 @@
         </form>
     </div>
 
-    <script type="text/javascript">
-        $(function() {
-            $('#datepicker').datepicker({
-                format: 'yyyy-mm-dd'
+    @push('js')
+        <script>
+            var options = {
+                filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+                filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token='+$("meta[name='csrf-token']").attr("content"),
+                filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+                filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='+$("meta[name='csrf-token']").attr("content")
+            };
+        </script>
+
+        <script>
+            CKEDITOR.replace('description', options);
+        </script>
+
+        <script type="text/javascript">
+            $(function() {
+                $('#datepicker').datepicker({
+                    format: 'yyyy-mm-dd'
+                });
             });
-        });
-    </script>
+        </script>
+    @endpush
 
 </x-admin.layout.layout>
+
+

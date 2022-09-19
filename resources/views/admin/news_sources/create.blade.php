@@ -12,6 +12,14 @@
                 <label for="title">Заголовок</label>
                 <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}">
             </div>
+            <div class="form-group">
+                <label for="description">Описание</label>
+                <textarea class="form-control" name="description" id="description">{!! old('description') !!}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="url">URL</label>
+                <textarea class="form-control" name="url" id="url">{!! old('url') !!}</textarea>
+            </div>
             <br>
             <button class="btn btn-success" type="submit">Сохранить</button>
         </form>

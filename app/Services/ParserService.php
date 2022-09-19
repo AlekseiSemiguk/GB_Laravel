@@ -14,8 +14,8 @@ class ParserService implements Parser
 {
     private string $link;
     private array $data;
-    const NEWS_CATEGORY = "Новости от Yandex";
-    const NEWS_SOURCE = "Yandex";
+    const NEWS_CATEGORY = "Новости от Rambler";
+    const NEWS_SOURCE = "Rambler";
     private int $categoryId = 0;
     private int $newsSourceId = 0;
 

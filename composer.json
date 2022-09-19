@@ -12,7 +12,8 @@
         "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.7",
         "orchestra/parser": "^7.0",
-        "spatie/laravel-sluggable": "^3.4"
+        "spatie/laravel-sluggable": "^3.4",
+        "unisharp/laravel-filemanager": "^2.5"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",

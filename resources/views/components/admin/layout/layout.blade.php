@@ -145,6 +145,7 @@
 
 <script src="{{ asset('assets/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('assets/sidebars.js') }}"></script>
-
+<script src="{{ asset('assets/ckeditor/ckeditor.js') }}"></script>
+@stack('js')
 </body>
 </html>

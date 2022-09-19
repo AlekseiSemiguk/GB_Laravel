@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\IndexController as AdminController;
 use App\Http\Controllers\OrderFormController;
 use App\Http\Controllers\SocialController;
 use Illuminate\Support\Facades\Route;
+use UniSharp\LaravelFilemanager\Lfm;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,4 +89,8 @@ Route::group(['middleware' => 'guest'], function() {
 
     Route::get('/auth/callback/{driver}', [SocialController::class, 'callback'])
         ->where('driver', '\w+');
+});
+
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+    Lfm::routes();
 });
